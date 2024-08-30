@@ -9,5 +9,8 @@
 #include <stdint.h>
 
 void sh_get_tpm_randbyte(void);
+void sh_tpm_get_randbyte(size_t num_bytes, uint8_t ** dst);
+void sh_tmp_get_key(struct sh_protected_entry_t * entry);
+void sh_tpm_store_key(char * key)
 
 #endif

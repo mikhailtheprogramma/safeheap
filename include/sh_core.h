@@ -15,7 +15,37 @@
 #define URANDOM "/dev/urandom"
 
 typedef uint8_t shared_buffer; // Buffer on-demand
-typedef uint8_t _default_size; // Internal byte handling of protected variable data
+typedef uint8_t _default_size; // Default internal byte handling of protected variable data
+
+// Keys
+struct algo_key_size
+{
+    int algorithm;
+
+    // Depending on protection_grade SH_PROTECT_NONE through SH_PROTECT_HIGH
+    size_t a_size;
+    size_t b_size;
+    size_t c_size;
+    size_t d_size;
+};
+
+// Replaces sh_get_key_size (ISSUE 12)
+struct algo_key_size key_size_table[] =
+{
+    {GCRY_CIPHER_AES128, 16},
+    {GCRY_CIPHER_AES192, 24},
+    {GCRY_CIPHER_AES256, 32},
+    {GCRY_CIPHER_3DES, 21}, // ew DES
+    {GCRY_CIPHER_TWOFISH, 0, 16, 24, 32},
+    {GCRY_CIPHER_BLOWFISH, 0,0,0,0} // TODO: FIX THIS YOU LITTLE SHIT
+};
+
+enum key_store_type
+{
+    TPM_STORE,
+    MEMORY_STORE,
+    HIGHLY_EXPERIMENTAL_INTERNET_STORE
+};
 
 struct sh_cipher_policy_t
 {
@@ -23,8 +53,12 @@ struct sh_cipher_policy_t
     int algorithm;
     int mode;
     unsigned int flag;
-    char * unsecure_key;
-    // some variable for tpm key
+    enum key_store_type key_store_type; // Indicates where the key is stored
+
+    char * unsecure_key; // If local key store
+
+    // TPM key access values
+    // More research needed into TSS2
 };
 
 enum sh_protection_grade

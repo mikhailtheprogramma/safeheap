@@ -2,9 +2,41 @@
 /* Copyright © 2024 Mikhailuwu */
 
 #include "../include/sh_crypto.h"
+#include "../include/sh_core.h"
+#include "../include/sh_tpm.h"
 #include <gcrypt.h>
 #include <errno.h>
 #include <stdio.h>
+
+// TODO: Used by sh_read, sh_write interface functions for transformation of protected memory data
+char * sh_get_key(struct sh_protected_entry_t * entry)
+{
+    struct sh_protection_policy_t * policy = sh_get_protection_policy(entry->protection);
+
+    // Safeguard, check if encryption enabled
+    if(!policy->encryption_enabled)
+        {
+            errno = EINVAL; // Invalid parameter
+            return NULL;
+        }
+
+    // IMPORTANT!
+    // Only store key in stack
+    char * key;
+
+    // Check key store location
+    switch(policy->cipher_policy.key_store_type)
+    {
+        case TPM_STORE:
+            sh_tmp_get_key(entry);
+        case MEMORY_STORE:
+            key = _sh_malloc(strlen(policy->cipher_policy.unsecure_key));
+    }
+}
+
+void sh_encrypt_segment(struct sh_segment_descriptor * segment, char * key)
+{
+}
 
 size_t sh_get_key_size(enum sh_protection_grade protection)
 {
