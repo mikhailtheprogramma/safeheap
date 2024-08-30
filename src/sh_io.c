@@ -30,7 +30,7 @@ shared_buffer * sh_read(shared_buffer * buffer)
     {
         // Resize the buffer for each segment
         total += entry->segments_table[s]->size;
-        buffer = _sh_realloc(buffer, total);
+        buffer = sh_internal_realloc(buffer, total);
         // Concat them onto each other
         buffer = (shared_buffer*)strconcat((char*)buffer, *(char*)entry->segments_table[s]->address);
     }

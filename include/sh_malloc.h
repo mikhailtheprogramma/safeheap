@@ -9,7 +9,7 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection);
 void * sh_free(void * shared_buffer);
 
 // Internal malloc wrappers with error handling
-void * _sh_malloc(size_t size);
-void * _sh_realloc(void * address, size_t size);
+void * sh_internal_malloc(size_t size);
+void * sh_internal_realloc(void * address, size_t size);
 
 #endif

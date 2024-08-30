@@ -10,14 +10,14 @@
 
 // TPM
 #include <tss2/tss2_sys.h>
-#define TPM2_RC_SUCCESS 0x000
 
+// Normal keygen
 #define URANDOM "/dev/urandom"
 
 typedef uint8_t shared_buffer; // Buffer on-demand
 typedef uint8_t _default_size; // Default internal byte handling of protected variable data
 
-// Keys
+// Key sizes depending on algorithm
 struct algo_key_size
 {
     int algorithm;
@@ -29,7 +29,7 @@ struct algo_key_size
     size_t d_size;
 };
 
-// Replaces sh_get_key_size (ISSUE 12)
+// TODO: Replaces sh_get_key_size (ISSUE 12)
 struct algo_key_size key_size_table[] =
 {
     {GCRY_CIPHER_AES128, 16},

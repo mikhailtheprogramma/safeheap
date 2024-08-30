@@ -22,16 +22,21 @@ char * sh_get_key(struct sh_protected_entry_t * entry)
 
     // IMPORTANT!
     // Only store key in stack
-    char * key;
+    char key[sh_get_key_size(policy->protection_grade)];
 
     // Check key store location
     switch(policy->cipher_policy.key_store_type)
     {
         case TPM_STORE:
-            sh_tmp_get_key(entry);
+            key = sh_tmp_get_key(entry);
         case MEMORY_STORE:
-            key = _sh_malloc(strlen(policy->cipher_policy.unsecure_key));
+
+        case HIGHLY_EXPERIMENTAL_INTERNET_STORE:
+            // buddy, i have no fucking clue
+            return NULL;
     }
+
+    return key;
 }
 
 void sh_encrypt_segment(struct sh_segment_descriptor * segment, char * key)
@@ -90,7 +95,7 @@ size_t sh_get_key_size(enum sh_protection_grade protection)
 void sh_generate_key(char * key, enum sh_protection_grade protection)
 {
     size_t key_size = sh_get_key_size(protection);
-    key = _sh_realloc(key, key_size);
+    key = sh_internal_realloc(key, key_size);
 
     FILE * urandom_file = fopen(URANDOM, "r");
     if(fread(key, key_size, 1, urandom_file) < key_size)

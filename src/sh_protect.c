@@ -6,7 +6,7 @@
 
 void sh_init_protection()
 {
-    sh_protected_table = _sh_malloc(sizeof(struct sh_protected_memory_table_t));
+    sh_protected_table = sh_internal_malloc(sizeof(struct sh_protected_memory_table_t));
 }
 
 struct sh_protection_policy_t * sh_get_protection_policy(enum sh_protection_grade protection)
@@ -27,7 +27,7 @@ struct sh_protection_policy_t * sh_get_protection_policy(enum sh_protection_grad
 shared_buffer ** sh_add_protection_entry(struct sh_segment_descriptor ** segments, size_t amount, enum sh_protection_grade protection)
 {
     // Allocate an entry struct
-    struct sh_protected_entry_t * entry = _sh_malloc(sizeof(struct sh_protected_entry_t));
+    struct sh_protected_entry_t * entry = sh_internal_malloc(sizeof(struct sh_protected_entry_t));
 
     entry->segment_amount = amount;
     entry->protection = protection;
@@ -35,7 +35,7 @@ shared_buffer ** sh_add_protection_entry(struct sh_segment_descriptor ** segment
     entry->shared_buffer = NULL;
 
     // Add to protection table
-    sh_protected_table->entries = _sh_realloc(sh_protected_table->entries, sizeof(struct sh_protected_entry_t) * (sh_protected_table->amount + 1));
+    sh_protected_table->entries = sh_internal_realloc(sh_protected_table->entries, sizeof(struct sh_protected_entry_t) * (sh_protected_table->amount + 1));
 
     return &entry->shared_buffer;
 }
