@@ -43,6 +43,7 @@ void sh_encrypt_segment(struct sh_segment_descriptor * segment, char * key)
 {
 }
 
+// Replace with issue 12 solution
 size_t sh_get_key_size(enum sh_protection_grade protection)
 {
     // Identify algorithm and appropriate key size
