@@ -21,23 +21,19 @@ typedef uint8_t _default_size; // Default internal byte handling of protected va
 struct algo_key_size
 {
     int algorithm;
-
-    // Depending on protection_grade SH_PROTECT_NONE through SH_PROTECT_HIGH
-    size_t a_size;
-    size_t b_size;
-    size_t c_size;
-    size_t d_size;
+    size_t sz_max;
 };
 
 // TODO: Replaces sh_get_key_size (ISSUE 12)
 struct algo_key_size key_size_table[] =
 {
-    {GCRY_CIPHER_AES128, 16},
-    {GCRY_CIPHER_AES192, 24},
-    {GCRY_CIPHER_AES256, 32},
-    {GCRY_CIPHER_3DES, 21}, // ew DES
-    {GCRY_CIPHER_TWOFISH, 0, 16, 24, 32},
-    {GCRY_CIPHER_BLOWFISH, 0,0,0,0} // TODO: FIX THIS YOU LITTLE SHIT
+    // Algorithm            Sz
+    {GCRY_CIPHER_AES128,    16  },
+    {GCRY_CIPHER_AES192,    24  },
+    {GCRY_CIPHER_AES256,    32  },
+    {GCRY_CIPHER_3DES,      21  },
+    {GCRY_CIPHER_TWOFISH,   32  },
+    {GCRY_CIPHER_BLOWFISH,  56  }
 };
 
 enum key_store_type

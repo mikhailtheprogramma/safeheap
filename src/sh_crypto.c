@@ -30,10 +30,7 @@ char * sh_get_key(struct sh_protected_entry_t * entry)
         case TPM_STORE:
             key = sh_tmp_get_key(entry);
         case MEMORY_STORE:
-
-        case HIGHLY_EXPERIMENTAL_INTERNET_STORE:
-            // buddy, i have no fucking clue
-            return NULL;
+            key = policy->cipher_policy.unsecure_key;
     }
 
     return key;
@@ -50,45 +47,13 @@ size_t sh_get_key_size(enum sh_protection_grade protection)
     size_t key_size;
     struct sh_protection_policy_t * protection_policy = sh_get_protection_policy(protection);
 
-    switch(protection_policy->cipher_policy.algorithm)
-    {
-        // ! Sizes are in bytes
-        case GCRY_CIPHER_AES128 || GCRY_CIPHER_AES:   // Key size: 128 bits
-            key_size = 16;
-        case GCRY_CIPHER_AES192:    // Key size: 192 bits
-            key_size = 24;
-        case GCRY_CIPHER_AES256:    // Key size: 256 bits
-            key_size = 32;
-        case GCRY_CIPHER_3DES:      // Key size: 168 bits (using three 56-bit keys)
-            key_size = 21;
-        case GCRY_CIPHER_TWOFISH:   // Key sizes: 128, 192, 256 bits
-            // Depending on encryption grade, the size varies from low:128 through high:256
-            switch(protection)
-            {
-                case SH_PROTECT_HIGH:
-                    key_size = 32;
-                case SH_PROTECT_MEDIUM:
-                    key_size = 24;
-                case SH_PROTECT_LOW:
-                    key_size = 16;
-                case SH_PROTECT_NONE:
-                    key_size = 0;
-                    errno = EINVAL;
-            }
-        case GCRY_CIPHER_BLOWFISH:  // Key sizes: 32 to 448 bits
-            switch(protection)
-            {
-                case SH_PROTECT_HIGH:
-                    key_size = 4;
-                case SH_PROTECT_MEDIUM:
-                    key_size = 25;
-                case SH_PROTECT_LOW:
-                    key_size = 56;
-                case SH_PROTECT_NONE:
-                    key_size = 0;
-                    errno = EINVAL;
-            }
-    }
+    for(int ksz = 0; ksz < sizeof(key_size_table); ksz++)
+        {
+            if(protection_policy->cipher_policy.algorithm == key_size_table[ksz].algorithm)
+                {
+                    return key_size_table[ksz].sz_max;
+                }
+        }
 
     return key_size;
 }
