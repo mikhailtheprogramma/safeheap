@@ -10,7 +10,7 @@
 
 bool sh_tpm_available();
 void sh_tpm_get_randbyte(size_t num_bytes, uint8_t ** dst);
-char * sh_tmp_get_key(struct sh_protected_entry_t * entry);
+char * sh_tpm_get_key(struct sh_protected_entry_t * entry, char * key);
 
 // Handles TSS2 subroutine calls with endgoal to store crypto key in TPM
 void sh_tpm_store_key(char * key);

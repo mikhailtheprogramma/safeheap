@@ -25,7 +25,6 @@ struct algo_key_size
     size_t sz_max;
 };
 
-// TODO: Replaces sh_get_key_size (ISSUE 12)
 struct algo_key_size key_size_table[] =
 {
     // Algorithm            Sz

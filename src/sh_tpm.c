@@ -38,7 +38,11 @@ void sh_tpm_store_key(char * key)
     }
 }
 
-char * sh_tmp_get_key(struct sh_protected_entry_t * entry)
+char * sh_tpm_get_key(struct sh_protected_entry_t * entry, char * key)
 {
 
+}
+
+bool sh_tpm_available()
+{
 }

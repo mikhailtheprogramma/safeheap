@@ -10,7 +10,7 @@ void sh_init_protection(bool tpm_enabled)
         {
             TPM_ENABLED = tpm_enabled;
         }
-        else
+    else
         {
             TPM_ENABLED = false;
         }
