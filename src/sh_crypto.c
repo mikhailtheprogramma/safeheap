@@ -22,22 +22,25 @@ char * sh_get_key(struct sh_protected_entry_t * entry)
 
     // IMPORTANT!
     // Only store key in stack
-    char key[sh_get_key_size(policy->protection_grade)];
+    char * key = sh_internal_malloc(sh_get_key_size(policy->protection_grade));
 
     // Check key store location
     switch(policy->cipher_policy.key_store_type)
     {
         case TPM_STORE:
-            key = sh_tmp_get_key(entry);
+            strcpy(key, sh_tmp_get_key(entry));
         case MEMORY_STORE:
-            key = policy->cipher_policy.unsecure_key;
+            strcpy(key, policy->cipher_policy.unsecure_key);
     }
 
     return key;
 }
 
-void sh_encrypt_segment(struct sh_segment_descriptor * segment, char * key)
+void sh_encrypt_segment(struct sh_segment_descriptor * segment, struct sh_protected_entry_t * entry)
 {
+    char * key = sh_get_key(entry);
+
+    free(key);
 }
 
 // Replace with issue 12 solution

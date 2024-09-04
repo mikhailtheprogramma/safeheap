@@ -10,6 +10,7 @@
 
 // TPM
 #include <tss2/tss2_sys.h>
+bool TPM_ENABLED;
 
 // Normal keygen
 #define URANDOM "/dev/urandom"
@@ -39,8 +40,7 @@ struct algo_key_size key_size_table[] =
 enum key_store_type
 {
     TPM_STORE,
-    MEMORY_STORE,
-    HIGHLY_EXPERIMENTAL_INTERNET_STORE
+    MEMORY_STORE
 };
 
 struct sh_cipher_policy_t

@@ -5,6 +5,11 @@
 #include <stdio.h>
 #include <stdint.h>
 
+bool sh_tpm_available()
+{
+
+}
+
 void sh_tpm_fapi_init(FAPI_CONTEXT * context)
 {
     if((context = Fapi_Initialize(NULL) != TSS2_RC_SUCCESS)
@@ -31,4 +36,9 @@ void sh_tpm_store_key(char * key)
     {
         sh_error(retcode);
     }
+}
+
+char * sh_tmp_get_key(struct sh_protected_entry_t * entry)
+{
+
 }

@@ -4,8 +4,16 @@
 #include "../include/sh_protect.h"
 #include <errno.h>
 
-void sh_init_protection()
+void sh_init_protection(bool tpm_enabled)
 {
+    if(tpm_enabled && sh_tpm_available())
+        {
+            TPM_ENABLED = tpm_enabled;
+        }
+        else
+        {
+            TPM_ENABLED = false;
+        }
     sh_protected_table = sh_internal_malloc(sizeof(struct sh_protected_memory_table_t));
 }
 
