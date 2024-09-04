@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 // TODO: Used by sh_read, sh_write interface functions for transformation of protected memory data
-char * sh_get_key(struct sh_protected_entry_t * entry)
+void sh_get_key(struct sh_protected_entry_t * entry, char * key)
 {
     struct sh_protection_policy_t * policy = sh_get_protection_policy(entry->protection);
 
@@ -17,12 +17,7 @@ char * sh_get_key(struct sh_protected_entry_t * entry)
     if(!policy->encryption_enabled)
         {
             errno = EINVAL; // Invalid parameter
-            return NULL;
         }
-
-    // IMPORTANT!
-    // Only store key in stack
-    char * key = sh_internal_malloc(sh_get_key_size(policy->protection_grade));
 
     // Check key store location
     switch(policy->cipher_policy.key_store_type)
@@ -32,15 +27,13 @@ char * sh_get_key(struct sh_protected_entry_t * entry)
         case MEMORY_STORE:
             strcpy(key, policy->cipher_policy.unsecure_key);
     }
-
-    return key;
 }
 
 void sh_encrypt_segment(struct sh_segment_descriptor * segment, struct sh_protected_entry_t * entry)
 {
-    char * key = sh_get_key(entry);
-
-    free(key);
+    // Retrieve key from general function
+    char key[sh_get_key_size(entry->protection)];
+    sh_get_key(entry, key);
 }
 
 // Replace with issue 12 solution

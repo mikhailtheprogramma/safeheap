@@ -6,6 +6,9 @@
 #include "sh_core.h"
 #include "sh_protect.h"
 
+// Key mngmt
+void sh_get_key(struct sh_protected_entry_t * entry, char * key);
+
 // Encrypt
 void sh_encrypt_segment(struct sh_segment_descriptor segment);
 
