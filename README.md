@@ -2,7 +2,7 @@
 
 ## Legal
 SPDX-License-Identifier: GPL-3.0 WITH bison-exception
-Copyright © 2024 Mikhailuwu
+<br>Copyright © 2024 Mikhailuwu
 
 ## Purpose
 This readme does NOT document the library functions and types. For usage documentation, please check the doc/safeheap-documentation.pdf file.
