@@ -23,14 +23,14 @@ WordGrinder dumpfile v3: this is a text file; diff me!
 .addons.spellchecker.enabled: false
 .addons.spellchecker.usesystemdictionary: true
 .addons.spellchecker.useuserdictionary: true
-.documents.1.co: 12
-.documents.1.cp: 44
-.documents.1.cw: 23
+.documents.1.co: 11
+.documents.1.cp: 3
+.documents.1.cw: 4
 .documents.1.margin: 0
 .documents.1.name: "main"
 .documents.1.sticky_selection: false
 .documents.1.viewmode: 1
-.documents.1.wordcount: 509
+.documents.1.wordcount: 513
 .fileformat: 8
 .menu.accelerators.BACKSPACE: "ZDPC"
 .menu.accelerators.DELETE: "ZDNC"
@@ -140,6 +140,7 @@ WordGrinder dumpfile v3: this is a text file; diff me!
 #1
 H1 SafeHeap Library Documentation
 P SPDX-License-Identifier: GPL-3.0 WITH bison-exception
+P Copyright © 2024 Mikhailuwu
 H2 1. Project
 L The project is maintained by Mikhailuwu (https://github.com/mikhailuwu) at https://github.com/mikhailuwu/safeheap.
 L If you have any bugs or feature requests then please do create an issue at the project site.
