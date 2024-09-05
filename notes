@@ -1,0 +1,16 @@
+
+    calculating ciphertext size
+
+course of action
+    1. check all ciphers and their specifications in libgcrypt
+
+information requirements
+    1. does it change ciphertext size?
+
+results
+    doc/results.pdf
+
+GCM (Galois/Counter Mode)
+    Increases length due to authentication tag (typically 16 bytes).
+CCM (Counter with CBC-MAC)
+    Increases length due to authentication tag (8-16 bytes).
