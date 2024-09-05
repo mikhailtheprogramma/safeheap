@@ -10,7 +10,6 @@
 #include <stddef.h>
 #include <stdio.h>
 
-// TODO: Used by sh_read, sh_write interface functions for transformation of protected memory data
 void sh_get_key(struct sh_protected_entry_t * entry, char * key)
 {
     struct sh_protection_policy_t * policy = sh_get_protection_policy(entry->protection);
@@ -31,11 +30,42 @@ void sh_get_key(struct sh_protected_entry_t * entry, char * key)
     }
 }
 
+void sh_init_gcrypt()
+{
+    if(!gcry_check_version(NEED_LIBGCRYPT_VERSION))
+        {
+            printf("libgcrypt is too old (need %s, have %s)\n", NEED_LIBGCRYPT_VERSION, gcry_check_version(NULL));
+        }
+}
+
 void sh_encrypt_segment(struct sh_segment_descriptor * segment, struct sh_protected_entry_t * entry)
 {
-    // Retrieve key from general function
+    // Retrieve key
     char key[sh_get_key_size(entry->protection)];
     sh_get_key(entry, key);
+
+    // TODO: Implement TPM supported encryption
+    if(!gcry_control(GCRYCTL_INITIALIZATION_FINISHED_P))
+        {
+            printf("Libgcrypt has not been initialized, attempting initialization by library ... \n", stderr);
+            sh_init_gcrypt();
+        }
+
+    struct sh_protection_policy_t * policy = sh_get_protection_policy(entry->protection);
+    gcry_cipher_hd_t cipher_handle;
+    gcry_handler_error_t retcode;
+    gcry_cipher_open(&cipher_handle, policy->cipher_policy.algorithm, policy->cipher_policy.mode, policy->cipher_policy.flag);
+    gcry_cipher_setkey(cipher_handle, key, sh_get_key_size(entry->protection));
+    gcry_cipher_setiv(cipher_handle, );
+
+    char * out[segment->size]; // most algorithms do not extend the size by padding methods etc.
+    // TODO: Implement a function to check the outsize by algorithm
+    if((retcode = gcry_cipher_encrypt(cipher_handle, out, segment->size, segment->address, segment->size)) == 0)
+        {
+            sh_error_gcry(retcode);
+        }
+
+    gcry_cipher_close(cipher_handle);
 }
 
 size_t sh_get_key_size(enum sh_protection_grade protection)

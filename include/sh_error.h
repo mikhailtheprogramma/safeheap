@@ -4,6 +4,8 @@
 #ifndef __SH_ERROR_H__
 #define __SH_ERROR_H__
 
+#include "gcrypt.h"
 void sh_error(int error);
+void sh_error_gcry(gcry_error_t error);
 
 #endif

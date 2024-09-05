@@ -8,11 +8,9 @@
 #include <gcrypt.h>
 #include <stdint.h>
 
-// TPM
-#include <tss2/tss2_sys.h>
 bool TPM_ENABLED;
+#define NEED_LIBGCRYPT_VERSION "1.0"
 
-// Normal keygen
 #define URANDOM "/dev/urandom"
 
 typedef uint8_t shared_buffer; // Buffer on-demand

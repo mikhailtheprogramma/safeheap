@@ -6,15 +6,8 @@
 #include "sh_core.h"
 #include "sh_protect.h"
 
-// Key mngmt
 void sh_get_key(struct sh_protected_entry_t * entry, char * key);
-
-// Encrypt
 void sh_encrypt_segment(struct sh_segment_descriptor * segment, struct sh_protected_entry_t * entry);
-
-// Decrypt
-
-// Keygen
 size_t sh_get_key_size(enum sh_protection_grade protection);
 size_t sh_generate_key(char * key, enum sh_protection_grade protection);
 
