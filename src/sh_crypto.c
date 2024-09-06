@@ -15,7 +15,7 @@ size_t sh_get_cipher_outsize_diff(int algorithm, int mode)
     for(int x = 0; x < sizeof(sh_ciphertext_sz_diff_table); x++)
         {
             // How do we determine the specific sz?
-            return sh_ciphertext_sz_diff_table[x].de_inc_;
+            return sh_ciphertext_sz_diff_table[x].de_inc_recommend;
         }
 }
 

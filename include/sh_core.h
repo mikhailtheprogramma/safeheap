@@ -108,8 +108,7 @@ struct sh_cipher_outsize_diff_t
 {
     //int algorithm;
     int mode;
-    int de_inc_a;
-    int de_inc_b;
+    int de_inc_recommend; // Accounts for size changes (increment/decrement)
 };
 
 /*

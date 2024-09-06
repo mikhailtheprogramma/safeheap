@@ -33,7 +33,7 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
     struct sh_segment_descriptor ** tmp_segments;
     size_t amount;
 
-    protection_policy->segment_size += sh_get_cipher_outsize_diff(protection_policy->cipher_policy.algorithm, protection_policy->cipher_policy.mode);
+    size_t cipher_changes = sh_get_cipher_outsize_diff(protection_policy->cipher_policy.algorithm, protection_policy->cipher_policy.mode)
 
     if(protection_policy->segmentation_enabled)
         {
@@ -50,12 +50,12 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
                     if(remaining < protection_policy->segment_size)
                         {
                             // If not, then use remainder
-                            segments_table[segment_index]->address = sh_internal_malloc(remaining);
-                            segments_table[segment_index]->size = remaining;
+                            segments_table[segment_index]->address = sh_internal_malloc(remaining + cipher_changes);
+                            segments_table[segment_index]->size = remaining + cipher_changes;
                         }
                     // Otherwise, use full block
-                    segments_table[segment_index]->address = sh_internal_malloc(protection_policy->segment_size);
-                    segments_table[segment_index]->size = protection_policy->segment_size;
+                    segments_table[segment_index]->address = sh_internal_malloc(protection_policy->segment_size + cipher_changes);
+                    segments_table[segment_index]->size = protection_policy->segment_size + cipher_changes;
 
                     segment_index++;
                 }
@@ -69,17 +69,15 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
             // Allocate an actual descriptor struct
             segments_table[0] = sh_internal_malloc(sizeof(struct sh_segment_descriptor));
 
-            // Allocate actual data
-            size += sh_get_cipher_outsize_diff(protection_policy->cipher_policy.algorithm, protection_policy->cipher_policy.mode);
-
+            // Allocate actual data + authentication tag depending on mode (retr by func)
+            size += cipher_changes
             segments_table[0]->address = sh_internal_malloc(size);
             segments_table[0]->size = size;
-
             amount = 1;
         }
 
     // Add entry to table
-    shared_buffer ** identifier_buffer = sh_add_protection_entry(segments_table, amount, protection);
+    shared_buffer ** identifier_buffer = sh_add_protection_entry(segments_table, amount, protection); // TODO: Is this correct
     return (void *)identifier_buffer;
 }
 
