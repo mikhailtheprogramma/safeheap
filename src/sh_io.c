@@ -32,8 +32,14 @@ shared_buffer * sh_read(shared_buffer * buffer)
         total += entry->segments_table[s]->size;
         buffer = sh_internal_realloc(buffer, total);
         // Concat them onto each other
-        buffer = (shared_buffer*)strconcat((char*)buffer, *(char*)entry->segments_table[s]->address);
+        buffer = (shared_buffer*)strcat((char*)buffer, (char*)entry->segments_table[s]->address);
     }
+
+    struct sh_protection_policy_t * policy = sh_get_protection_policy(entry->protection);
+    if(policy->encryption_enabled)
+        {
+            sh_decrypt_buffer(buffer, entry);
+        }
 
     return buffer;
 }

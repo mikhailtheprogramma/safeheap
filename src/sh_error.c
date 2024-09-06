@@ -7,7 +7,7 @@
 
 void sh_error(int error)
 {
-    printf("Error occured from %p: %s \n", __FUNCTION_NAME__, (char*)strerror(error));
+    printf("Error occured from %p: %s \n", __FUNCTION_NAME__, strerror(error));
 }
 
 void sh_error_gcry(struct gcry_error_t * error)

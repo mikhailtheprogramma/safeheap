@@ -104,9 +104,9 @@ struct sh_protection_policy_t sh_protection_policies[4] =
  */
 
 // Check table for ciphertext size changes (issue 15)
-struct sh_cipher_outsize_algo_t
+struct sh_cipher_outsize_diff_t
 {
-    int algorithm;
+    //int algorithm;
     int mode;
     int de_inc_a;
     int de_inc_b;
@@ -118,11 +118,11 @@ struct sh_cipher_outsize_algo_t
     CCM (Counter with CBC-MAC)
         Increases length due to authentication tag (8-16 bytes).
 */
-struct sh_cipher_outsize_t sh_ciphertext_sz_table[2] =
+struct sh_cipher_outsize_diff_t sh_ciphertext_sz_diff_table[2] =
 {
     // TODO: each AES each mode
-    {GCRY_CIPHER_AES, GCRY_CIPHER_MODE_GCM, 16, 16},
-    {GCRY_CIPHER_AES, GCRY_CIPHER_MODE_CCM, 8, 16}
+    {GCRY_CIPHER_MODE_GCM, 16, 16},
+    {GCRY_CIPHER_MODE_CCM, 8, 16}
 };
 
 /*

@@ -33,6 +33,8 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
     struct sh_segment_descriptor ** tmp_segments;
     size_t amount;
 
+    protection_policy->segment_size += sh_get_cipher_outsize_diff(protection_policy->cipher_policy.algorithm, protection_policy->cipher_policy.mode);
+
     if(protection_policy->segmentation_enabled)
         {
             size_t segment_index = 0;
@@ -68,6 +70,8 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
             segments_table[0] = sh_internal_malloc(sizeof(struct sh_segment_descriptor));
 
             // Allocate actual data
+            size += sh_get_cipher_outsize_diff(protection_policy->cipher_policy.algorithm, protection_policy->cipher_policy.mode);
+
             segments_table[0]->address = sh_internal_malloc(size);
             segments_table[0]->size = size;
 

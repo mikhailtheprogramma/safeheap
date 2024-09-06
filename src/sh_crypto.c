@@ -10,6 +10,15 @@
 #include <stddef.h>
 #include <stdio.h>
 
+size_t sh_get_cipher_outsize_diff(int algorithm, int mode)
+{
+    for(int x = 0; x < sizeof(sh_ciphertext_sz_diff_table); x++)
+        {
+            // How do we determine the specific sz?
+            return sh_ciphertext_sz_diff_table[x].de_inc_;
+        }
+}
+
 void sh_get_key(struct sh_protected_entry_t * entry, char * key)
 {
     struct sh_protection_policy_t * policy = sh_get_protection_policy(entry->protection);
@@ -59,7 +68,7 @@ void sh_encrypt_segment(struct sh_segment_descriptor * segment, struct sh_protec
     gcry_cipher_setiv(cipher_handle, );
 
     char * out[segment->size]; // most algorithms do not extend the size by padding methods etc.
-    // TODO: Implement a function to check the outsize by algorithm
+
     if((retcode = gcry_cipher_encrypt(cipher_handle, out, segment->size, segment->address, segment->size)) == 0)
         {
             sh_error_gcry(retcode);
