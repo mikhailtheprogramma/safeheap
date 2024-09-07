@@ -7,7 +7,7 @@ SPDX-License-Identifier: GPL-3.0 WITH bison-exception
 Under the GNU General Public License version 3 (GPL-3.0), the software is provided "as is," without any warranty or guarantee of any kind. The authors or copyright holders are not liable for any damages or issues that arise from using, modifying, or distributing the software. Use the software at your own risk.
 
 ## Purpose
-This readme does NOT document the library functions and types. For usage documentation, please check the doc/safeheap-documentation.pdf file.
+This readme does NOT document the library functions and types. For usage documentation, please refer to the *doc/safeheap-documentation.pdf* documentation file.
 
 ## Project
 The safeheap library project is maintained by mikhailuwu (https://github.com/mikhailuwu) at https://github.com/mikhailuwu/safeheap.
