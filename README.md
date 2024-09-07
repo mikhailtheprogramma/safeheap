@@ -4,6 +4,8 @@
 SPDX-License-Identifier: GPL-3.0 WITH bison-exception
 <br>Copyright © 2024 Mikhailuwu
 
+Under the GNU General Public License version 3 (GPL-3.0), the software is provided "as is," without any warranty or guarantee of any kind. The authors or copyright holders are not liable for any damages or issues that arise from using, modifying, or distributing the software. Use the software at your own risk.
+
 ## Purpose
 This readme does NOT document the library functions and types. For usage documentation, please check the doc/safeheap-documentation.pdf file.
 
@@ -31,4 +33,4 @@ The user may also specify they want to encrypt the allocated memory. This is don
 Various randomization techniques may be used if specified by user upon allocation. Randomization aims to 'randomize' various signatures that may reveal secret information, such as side-channel information (e.g. power analysis, accoustic analysis, cache monitoring, etc.) by deploying techniques to create "noise" on all the vulnerable channels such as performing irrelevant random calculations before, after, or during a memory read/write. Address Space Layout Randomization (ASLR) is also used, moving the memory segments across the heap at random to avoid an attacker from analyzing the data while handled in memory.
 
 ## Erasure
-Once the data under protection is no longer used, in the event of program termination or freed by user, the library internally may use erasure techniques to ensure the data is made no longer accessible. This involves overwriting the data with random data a certain amount of cycles depending on storage medium. 
+Once the data under protection is no longer used, in the event of program termination or freed by user, the library internally may use erasure techniques to ensure the data is made no longer accessible. This involves overwriting the data with random data a certain amount of cycles depending on storage medium.

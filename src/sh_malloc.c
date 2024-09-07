@@ -33,7 +33,7 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
     struct sh_segment_descriptor ** tmp_segments;
     size_t amount;
 
-    size_t cipher_changes = sh_get_cipher_outsize_diff(protection_policy->cipher_policy.algorithm, protection_policy->cipher_policy.mode)
+    size_t cipher_changes = sh_get_cipher_outsize_diff(protection_policy->cipher_policy.algorithm, protection_policy->cipher_policy.mode);
 
     if(protection_policy->segmentation_enabled)
         {

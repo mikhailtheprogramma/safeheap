@@ -21,7 +21,6 @@ typedef uint8_t _default_size; // Default internal byte handling of protected va
  * |                 CIPHER KEY SIZES                   |
  * +----------------------------------------------------+
  */
-
 // Key sizes depending on algorithm
 struct algo_key_size
 {
@@ -45,7 +44,6 @@ struct algo_key_size key_size_table[] =
  * |           PROTECTION AND CIPHER POLICY             |
  * +----------------------------------------------------+
  */
-
 enum key_store_type
 {
     TPM_STORE,
@@ -102,13 +100,12 @@ struct sh_protection_policy_t sh_protection_policies[4] =
  * |              CIPHERTEXT SIZE CHECK                 |
  * +----------------------------------------------------+
  */
-
 // Check table for ciphertext size changes (issue 15)
 struct sh_cipher_outsize_diff_t
 {
     //int algorithm;
     int mode;
-    int de_inc_recommend; // Accounts for size changes (increment/decrement)
+    size_t de_inc_recommend; // Accounts for size changes (increment/decrement)
 };
 
 /*
@@ -119,9 +116,8 @@ struct sh_cipher_outsize_diff_t
 */
 struct sh_cipher_outsize_diff_t sh_ciphertext_sz_diff_table[2] =
 {
-    // TODO: each AES each mode
-    {GCRY_CIPHER_MODE_GCM, 16, 16},
-    {GCRY_CIPHER_MODE_CCM, 8, 16}
+    {GCRY_CIPHER_MODE_GCM, +16},
+    {GCRY_CIPHER_MODE_CCM, +16}
 };
 
 /*
@@ -129,7 +125,6 @@ struct sh_cipher_outsize_diff_t sh_ciphertext_sz_diff_table[2] =
  * |             PROTECTED MEMORY TABLE                 |
  * +----------------------------------------------------+
  */
-
 struct sh_segment_descriptor
 {
     _default_size * address;
