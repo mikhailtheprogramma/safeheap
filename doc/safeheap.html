@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="WordGrinder 0.8"/>
+<title>main</title>
+</head><body>
+
+<h1>SafeHeap Library Documentation</h1>
+<p>SPDX-License-Identifier: GPL-3.0 WITH bison-exception</p>
+<p>Copyright © 2024 Mikhailuwu</p>
+<h2>1. Project</h2>
+<ul>
+<li style="list-style-type: none;"><i>The </i><i>project </i><i>is </i><i>maintained </i><i>by </i><i>Mikhailuwu </i><i>(https://github.com/mikhailuwu) </i>at https://github.com/mikhailuwu/safeheap.</li>
+<li style="list-style-type: none;">If you have any bugs or feature requests then please do create an issue at the project site.</li>
+</ul>
+<h2>1.1 Purpose</h2>
+<ul>
+<li style="list-style-type: none;">SafeHeap (safeheap.h) is a C/C++ library made primarily for Linux kernel systems, providing a framework of security implementations for the user developer to use for a more secure memory handling.</li>
+</ul>
+<h2>Content</h2>
+<ul>
+<li style="list-style-type: none;">1. Project</li>
+<li style="list-style-type: none;">   1.1 Purpose</li>
+<li style="list-style-type: none;">2. Protection</li>
+<li style="list-style-type: none;">   2.1 Segmentation</li>
+<li style="list-style-type: none;">   2.2 Cryptography</li>
+<li style="list-style-type: none;">       2.2.1 Key storage</li>
+<li style="list-style-type: none;">             2.2.1.1 TPM</li>
+<li style="list-style-type: none;">             2.2.1.2 Memory</li>
+<li style="list-style-type: none;">       2.2.2 Algorithms</li>
+<li style="list-style-type: none;">             <i>2.2.2.1 </i><i>Speed </i><i>vs. </i><i>Security</i></li>
+<li style="list-style-type: none;">   2.3 Randomization</li>
+<li style="list-style-type: none;">       2.3.1 Address Space Layout Randomization</li>
+<li style="list-style-type: none;">       2.3.2 Side-Channel Noise</li>
+<li style="list-style-type: none;">   2.4 Erasure</li>
+<li style="list-style-type: none;">       2.4.1 Volatile Memory Wiping</li>
+<li style="list-style-type: none;">       2.4.2 Hard Disk Memory Wiping</li>
+<li style="list-style-type: none;">3. External</li>
+<li style="list-style-type: none;">   3.1 Functions</li>
+<li style="list-style-type: none;">       3.1.1 sh_malloc</li>
+<li style="list-style-type: none;">       3.1.2 sh_free</li>
+<li style="list-style-type: none;">       3.1.3 sh_read</li>
+<li style="list-style-type: none;">       3.1.4 sh_write</li>
+<li style="list-style-type: none;">   3.2 Types</li>
+<li style="list-style-type: none;">       3.2.1 shared_buffer</li>
+<li style="list-style-type: none;">4. Internal</li>
+<li style="list-style-type: none;">    4.1 Types</li>
+<li style="list-style-type: none;">        4.1.1 sh_protected_memory_table_t</li>
+<li style="list-style-type: none;">        4.1.2 sh_protected_entry_t</li>
+<li style="list-style-type: none;">        4.1.3 sh_segment_descriptor_t</li>
+<li style="list-style-type: none;">        4.1.4 sh_protection_policy_t</li>
+<li style="list-style-type: none;">        4.1.5 sh_cipher_policy_t</li>
+<li style="list-style-type: none;">    4.2 Functions</li>
+</ul>
+<h2>2. Protection</h2>
+<p>For a dynamic variable to become protected, the user must first call the sh_malloc (external) function. This function will allocate heap memory either as a single block or in segments depending on user parameters. Thereafter an entry is created internally in the Protected Memory Table (PMT) with this information, including a protection grade passed by the user. The protection grade indicates what protection policy should be employed when handling the allocated memory, including encryption, segmentation, aslr, side-channel noise, and erasure. After the sh_malloc finishes, it returns an identifier pointer used to reference the protected memory through the sh_free, sh_read, and sh_write functions.</p>
+<p>To read the memory the user must call the sh_read function that internally transforms the protected memory into a single buffer which is then provided to the user as a pointer, whether the identifier pointer is changed or not depends on the memory address space layout just as with malloc family functions.</p>
+<p>To write to memory the user must first call the sh_read and do actual write to shared buffer, then sh_write to update internally.</p>
+</body>
+</html>
