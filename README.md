@@ -23,5 +23,3 @@ This README does not provide any extensive documentation to the usage of the saf
 If you experience any bugs or have feature requests, please create an [issue](https://github.com/mikhailuwu/safeheap/issues) in the project repository.
 
 However if you believe to have found a security vulnerability, then refer to the [security policy](SECURITY.md).
-
-# Table of content
