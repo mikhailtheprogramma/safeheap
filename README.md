@@ -1,5 +1,8 @@
 # Safeheap library
 
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+
 ## Legal
 SPDX-License-Identifier: GPL-3.0 WITH bison-exception
 <br>Copyright © 2024 Mikhailuwu
