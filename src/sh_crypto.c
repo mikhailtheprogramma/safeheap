@@ -105,18 +105,23 @@ size_t sh_generate_key(char * key, enum sh_protection_grade protection)
     switch(policy->cipher_policy.key_store_type)
     {
         case TPM_STORE:
+        {
             if(TPM_ENABLED && sh_tpm_available())
                 {
                     sh_
                 }
+            break;
         case MEMORY_STORE:
+        {
             FILE * urandom_file = fopen(URANDOM, "r");
             if(fread(key, key_size, 1, urandom_file) < key_size)
                 {
                     fclose(urandom_file);
                     sh_error(errno);
+                    break;
                 }
             fclose(urandom_file);
+        }
     }
 
     return key_size;

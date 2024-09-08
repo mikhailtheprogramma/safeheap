@@ -24,7 +24,7 @@ Safeheap is a C/C++ POSIX compliant library with the focus on memory security im
 - Erasure
 
 ### Segmentation
-Upon a dynamic allocation of memory, the user may specify they want to segment the memory variable. Meaning dividing it into separate chunks spread across the memory heap.
+Upon a dynamic allocation of memory using a library-specific malloc wrapper function, the user may specify they want to segment the memory variable. Meaning dividing it into separate chunks spread across the memory heap. This is done internally.
 
 ### Cryptography
 The user may also specify they want to encrypt the allocated memory. This is done internally when the user writes/reads the memory. The encryption algorithms used are symmetrical meaning there is only one key involved for encrypting and decrypting said memory. The key is stored and handled internally by the library and not made accessible to the user. The key may be stored either in memory in the protected memory table (PMT) or in a TPM module if available.
