@@ -19,7 +19,9 @@ The safeheap library is currently maintained by @mikhailuwu (https://github.com/
 ## Purpose
 This README does not provide any extensive documentation to the usage of the safeheap library. Instead, please refer to the documentation in doc/safeheap-documentation.pdf.
 
-## Bugs and features
+## Bugs, features and vulnerabilities
 If you experience any bugs or have feature requests, please create an issue in the project repository.
+
+However if you believe to have found a security vulnerability, then refer to the [security policy](SECURITY.md).
 
 # Table of content
