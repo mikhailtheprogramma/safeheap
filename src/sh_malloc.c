@@ -32,7 +32,6 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
     struct sh_segment_descriptor ** segments_table;
     struct sh_segment_descriptor ** tmp_segments;
     size_t amount;
-
     size_t cipher_changes = sh_get_cipher_outsize_diff(protection_policy->cipher_policy.algorithm, protection_policy->cipher_policy.mode);
 
     if(protection_policy->segmentation_enabled)
@@ -70,15 +69,15 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
             segments_table[0] = sh_internal_malloc(sizeof(struct sh_segment_descriptor));
 
             // Allocate actual data + authentication tag depending on mode (retr by func)
-            size += cipher_changes
+            size += cipher_changes;
             segments_table[0]->address = sh_internal_malloc(size);
             segments_table[0]->size = size;
             amount = 1;
         }
 
     // Add entry to table
-    shared_buffer ** identifier_buffer = sh_add_protection_entry(segments_table, amount, protection); // TODO: Is this correct
-    return (void *)identifier_buffer;
+    shared_buffer * identifier_buffer = sh_add_protection_entry(segments_table, amount, protection); // TODO: Is this correct
+    return (void *)identifier_buffer; // allow user type casting like malloc
 }
 
 void * sh_free(void * shared_buffer);

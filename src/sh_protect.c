@@ -32,7 +32,7 @@ struct sh_protection_policy_t * sh_get_protection_policy(enum sh_protection_grad
 
 // If ret null then fail
 // ret will be forwarded to sh_malloc and then user
-shared_buffer ** sh_add_protection_entry(struct sh_segment_descriptor ** segments, size_t amount, enum sh_protection_grade protection)
+shared_buffer * sh_add_protection_entry(struct sh_segment_descriptor ** segments, size_t amount, enum sh_protection_grade protection)
 {
     // Allocate an entry struct
     struct sh_protected_entry_t * entry = sh_internal_malloc(sizeof(struct sh_protected_entry_t));
