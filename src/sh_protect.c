@@ -4,6 +4,11 @@
 #include "../include/sh_protect.h"
 #include <errno.h>
 
+void sh_init_check()
+{
+    
+}
+
 void sh_init_protection(bool tpm_enabled)
 {
     if(tpm_enabled && sh_tpm_available())
