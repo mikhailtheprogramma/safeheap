@@ -76,7 +76,7 @@ void * sh_malloc(size_t size, enum sh_protection_grade protection)
         }
 
     // Add entry to table
-    shared_buffer * identifier_buffer = sh_add_protection_entry(segments_table, amount, protection); // TODO: Is this correct
+    shared_buffer * identifier_buffer = sh_add_protection_entry(segments_table, amount, protection);
     return (void *)identifier_buffer; // allow user type casting like malloc
 }
 
