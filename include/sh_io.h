@@ -1,6 +1,11 @@
 /* SPDX-License-Identifier: GPL-3.0 WITH bison-exception */
 /* Copyright © 2024 Mikhailuwu */
 
+/*
+    sh_io.h
+    Input/output to the protected memory. User interface.
+ */
+
 #ifndef __SH_IO_H__
 #define __SH_IO_H__
 #include "sh_core.h"

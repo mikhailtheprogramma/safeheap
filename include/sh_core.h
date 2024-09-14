@@ -1,6 +1,11 @@
 /* SPDX-License-Identifier: GPL-3.0 WITH bison-exception */
 /* Copyright © 2024 Mikhailuwu */
 
+/*
+    sh_core.h
+    Contains core data structures used throughout the library
+ */
+
 #ifndef __SH_CORE_SH__
 #define __SH_CORE_SH__
 #include <stdlib.h>

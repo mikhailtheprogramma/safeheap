@@ -1,6 +1,11 @@
 /* SPDX-License-Identifier: GPL-3.0 WITH bison-exception */
 /* Copyright © 2024 Mikhailuwu */
 
+/*
+    safeheap.h
+    The "entrypoint" in terms of including all headers for the user
+ */
+
 #ifndef __SAFEHEAP_H__
 #define __SAFEHEAP_H__
 

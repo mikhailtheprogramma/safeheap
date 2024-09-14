@@ -1,6 +1,11 @@
 /* SPDX-License-Identifier: GPL-3.0 WITH bison-exception */
 /* Copyright © 2024 Mikhailuwu */
 
+/*
+    sh_crypto.h
+    Contains cryptography-related functions
+ */
+
 #ifndef __SH_CRYPTO_H__
 #define __SH_CRYPTO_H__
 #include "sh_core.h"
