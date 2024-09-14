@@ -16,7 +16,7 @@
 #define MEM_ID_RAM  3
 
 // Returns MEM_ID_*
-int8_t sh_check_memory_type(struct sh_segment_descriptor * segment);
+int8_t sh_check_memory_type(struct sh_segment_descriptor * segment); // TODO: erm how
 void sh_erase(struct sh_segment_descriptor * segment);
 
 #endif
