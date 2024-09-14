@@ -1,3 +1,10 @@
+![SafeHeap Emblem](https://github.com/mikhailuwu/safeheap/blob/latest/doc/safeheap.png?raw=true)
+
+![Static Badge](https://img.shields.io/badge/License-GPL--3.0-yellow)
+![Static Badge](https://img.shields.io/badge/Language-ISO/POSIX_C-blue)
+![Static Badge](https://img.shields.io/badge/Status-Not--ready-red)
+
+
 # Safeheap documentation
 
 > [!Warning]
@@ -39,19 +46,31 @@ On heap allocation request through an user interface function provided by the sa
 
 | Grade     | Segmentation | Encryption | Erasure | ASLR | SC Noise |
 |-----------|--------------|------------|---------|------|----------|
-| HIGH      | <span style="color:green;">Yes</span>          | <span style="color:green;">Yes</span>        | <span style="color:green;">Yes</span>     | <span style="color:green;">Yes</span>  | <span style="color:green;">Yes</span>      |
-|-----------|--------------|------------|---------|------|----------|
-| MEDIUM    | <span style="color:green;">Yes</span>          | <span style="color:green;">Yes</span>        | <span style="color:green;">Yes</span>     | No   | No       |
-|-----------|--------------|------------|---------|------|----------|
-| LOW       | <span style="color:green;">Yes</span>          | No         | <span style="color:green;">Yes</span>     | No   | No       |
-|-----------|--------------|------------|---------|------|----------|
-| NONE      | No           | No         | <span style="color:green;">Yes</span>     | No   | No       |
+| <span style="color:green">HIGH</span>      | <span style="color:green;">Yes</span>          | <span style="color:green;">Yes</span>        | <span style="color:green;">Yes</span>     | <span style="color:green;">Yes</span>  | <span style="color:green;">Yes</span>      |
+| <span style="color:orange">MED</span>    | <span style="color:green;">Yes</span>          | <span style="color:green;">Yes</span>        | <span style="color:green;">Yes</span>     | No   | No       |
+| <span style="color:red">LOW</span>       | <span style="color:green;">Yes</span>          | No         | <span style="color:green;">Yes</span>     | No   | No       |
+| <span style="color:red">NONE</span>      | No           | No         | <span style="color:green;">Yes</span>     | No   | No       |
+
+> [!Warning]
+> If you expect protection of passwords and sensitive information then it is recommended to use protection HIGH.
 
 Encryption is only enabled from MEDIUM through HIGH but the cipher algorithm and modes vary (see figure below u stupid goober).
 
 | High   | Algorithm  | Mode |
 |--------|------------|------|
-| HIGH   | AES256     | GCM  |
-|--------|------------|------|
-| MEDIUM | AES192     | GCM  |
-|--------|------------|------|
+| <span style="color:red">HIGH</span>   | AES256     | GCM  |
+| <span style="color:orange">MEDIUM</span> | AES192     | GCM  |
+
+### 3.2 Segmentation
+If user specifies they want a heap variable to be *segmented* then on request through [sh_malloc](###sh_malloc) the variable will be divided into chunks or *segments* spread across the heap. The subsystems handle the read/write/*alloc automatically for the user.
+
+### 3.3 Encryption
+If specified, the protected memory may also be encrypted with various ciphers. This is handled by the internal subsystems in read/write operations.
+
+### 3.4 Erasure
+On request or if no longer needed, a variable's data may be wiped by overwriting the bits with random bits a certain amounts of times depending on the storage medium. For example, if stored in volatile memory then the system will only perform one overwrite, but if stored on a swap device such as a hard drive then multiple cycles of overwriting will be performed on said memory to ensure it may no longer be forensically recoverable.
+
+### 3.5 Randomization
+Another memory vulnerability, rare but possible, are side-channel attacks. These are attacks using available information from *side-channels* such as page files, power usage, sound made by the hardware, etc. This information is then used to do a statistical attack to analyze and understand how the data is handled.
+
+To deter and prevent these attacks, side-channel noise may be generated if specified by user.
