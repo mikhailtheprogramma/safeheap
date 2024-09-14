@@ -3,10 +3,14 @@
 
 #include "../include/sh_protect.h"
 #include <errno.h>
+#include <stdbool.h>
 
-void sh_init_check()
+bool sh_init_check()
 {
-    
+    if(sh_protected_table == NULL)
+    {
+        return false;
+    }
 }
 
 void sh_init_protection(bool tpm_enabled)
