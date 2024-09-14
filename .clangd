@@ -1,2 +1,2 @@
 CompileFlags:
-  Add: [-I/opt/homebrew/include, -xc, -I_include, -I_include/tss2/tss2-fapi]
+  Add: [-I/opt/homebrew/include, -xc, -I_include, -I/usr/include/tss2]

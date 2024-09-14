@@ -3,7 +3,7 @@
 
 #ifndef __SH_TPM_H__
 #define __SH_TPM_H__
-#include <fapi/fapi_common.h>
+#include <tss2/tss2-fapi/fapi_types.h> // ! I have no fucking clue anymore
 #include "sh_error.h"
 #include "sh_core.h"
 #include <stdint.h>
