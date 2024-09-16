@@ -52,7 +52,7 @@ On heap allocation request through an user interface function provided by the sa
 | <span style="color:red">NONE</span>      | No           | No         | <span style="color:green;">Yes</span>     | No   | No       |
 
 > [!Warning]
-> If you expect protection of passwords and sensitive information then it is recommended to use protection HIGH.
+> If you expect protection of passwords and sensitive information then it is recommended to use protection MEDIUM to HIGH and not LOW or NONE due to lacking encryption.
 
 Encryption is only enabled from MEDIUM through HIGH but the cipher algorithm and modes vary (see figure below u stupid goober).
 
