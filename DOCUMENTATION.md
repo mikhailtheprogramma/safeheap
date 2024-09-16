@@ -51,15 +51,19 @@ On heap allocation request through an user interface function provided by the sa
 | <span style="color:red">LOW</span>       | <span style="color:green;">Yes</span>          | No         | <span style="color:green;">Yes</span>     | No   | No       |
 | <span style="color:red">NONE</span>      | No           | No         | <span style="color:green;">Yes</span>     | No   | No       |
 
+Figure 1
+
 > [!Warning]
 > If you expect protection of passwords and sensitive information then it is recommended to use protection MEDIUM to HIGH and not LOW or NONE due to lacking encryption.
 
-Encryption is only enabled from MEDIUM through HIGH but the cipher algorithm and modes vary (see figure below u stupid goober).
+Encryption is only enabled from MEDIUM through HIGH but the cipher algorithm and modes vary (see figure 2).
 
 | High   | Algorithm  | Mode |
 |--------|------------|------|
 | <span style="color:red">HIGH</span>   | AES256     | GCM  |
 | <span style="color:orange">MEDIUM</span> | AES192     | GCM  |
+
+Figure 2
 
 ### 3.2 Segmentation
 If user specifies they want a heap variable to be *segmented* then on request through [sh_malloc](###sh_malloc) the variable will be divided into chunks or *segments* spread across the heap. The subsystems handle the read/write/*alloc automatically for the user.
