@@ -66,10 +66,10 @@ Encryption is only enabled from MEDIUM through HIGH but the cipher algorithm and
 **Figure 2:** Algorithms and modes according to protection specifier
 
 ### 3.2 Segmentation
-If user specifies they want a heap variable to be *segmented* then on request through [sh_malloc](###sh_malloc) the variable will be divided into chunks or *segments* spread across the heap. The subsystems handle the read/write/*alloc automatically for the user.
+If user specifies they want a heap variable to be *segmented*, then on request through [sh_malloc](###sh_malloc), the variable will be divided into chunks or *segments* spread across the heap. The subsystems handle the read/write/*alloc automatically for the user.
 
 ### 3.3 Encryption
-If specified, the protected memory may also be encrypted with various ciphers. This is handled by the internal subsystems in read/write operations.
+If specified, the protected memory may also be encrypted with various ciphers. This is handled by the internal subsystems in read/write operations and requires no user (programmatic) oversight.
 
 ### 3.4 Erasure
 On request or if no longer needed, a variable's data may be wiped by overwriting the bits with random bits a certain amounts of times depending on the storage medium. For example, if stored in volatile memory then the system will only perform one overwrite, but if stored on a swap device such as a hard drive then multiple cycles of overwriting will be performed on said memory to ensure it may no longer be forensically recoverable.
